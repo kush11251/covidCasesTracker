@@ -115,7 +115,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   Future<Covid19Class> currentStateCase;
 
-  var a = 10;
+  var a = 37;//State Data Code
 
   @override
   void initState() {
@@ -134,70 +134,203 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: Text('Fetch Data Example'),
         ),
-        body: Center(
-          child: FutureBuilder<Covid19Class>(
-            future: currentStateCase,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return Column(
+        body: ListView.builder(
+          itemCount: a,
+          itemBuilder: (context,i) {
+            return Center(
+              child: FutureBuilder<Covid19Class>(
+                future: currentStateCase,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    /*return Column(
                   children: [
 
                     Row(
                       children: [
-                        Text('State : ${snapshot.data.statewise.elementAt(a).state}')
+                        Text('State : ${snapshot.data.statewise.elementAt(i).state}')
                       ],
                     ),
                     Row(
                       children: [
-                        Text('Active : ${snapshot.data.statewise.elementAt(a).active}')
+                        Text('Active : ${snapshot.data.statewise.elementAt(i).active}')
                       ],
                     ),
                     Row(
                       children: [
-                        Text('Confirmed : ${snapshot.data.statewise.elementAt(a).confirmed}')
+                        Text('Confirmed : ${snapshot.data.statewise.elementAt(i).confirmed}')
                       ],
                     ),
                     Row(
                       children: [
-                        Text('Death : ${snapshot.data.statewise.elementAt(a).deaths}')
+                        Text('Death : ${snapshot.data.statewise.elementAt(i).deaths}')
                       ],
                     ),
 
                     Row(
                       children: [
-                        Text('Last Updated Time : ${snapshot.data.statewise.elementAt(a).lastupdatedtime}')
+                        Text('Last Updated Time : ${snapshot.data.statewise.elementAt(i).lastupdatedtime}')
                       ],
                     ),
                     Row(
                       children: [
-                        Text('Migrated To Other States : ${snapshot.data.statewise.elementAt(a).migratedother}')
+                        Text('Migrated To Other States : ${snapshot.data.statewise.elementAt(i).migratedother}')
                       ],
                     ),
                     Row(
                       children: [
-                        Text('Recovered : ${snapshot.data.statewise.elementAt(a).recovered}')
+                        Text('Recovered : ${snapshot.data.statewise.elementAt(i).recovered}')
                       ],
                     ),
                     Row(
                       children: [
-                        Text('State Code : ${snapshot.data.statewise.elementAt(a).statecode}')
+                        Text('State Code : ${snapshot.data.statewise.elementAt(i).statecode}')
                       ],
                     ),
                   ],
-                );
-
-                /*return Card(
-                  elevation: 10,
-                  child: Text('Hello'),
                 );*/
-              } else if (snapshot.hasError) {
-                return Text("${snapshot.error}");
-              }
 
-              // By default, show a loading spinner.
-              return CircularProgressIndicator();
-            },
-          ),
+                    return SizedBox(
+                        height: 70,
+                        width: double.maxFinite,
+                        child: Card(
+                          elevation: 10,
+                          shadowColor: Colors.yellow,
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  if(snapshot.data.statewise.elementAt(i).statecode == 'DN')
+                                    Text(
+                                      'Dadra and Daman '
+                                          '(${snapshot.data.statewise.elementAt(i).statecode})',
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                      ),
+                                    )
+                                  else
+                                    Text(
+                                    '${snapshot.data.statewise.elementAt(i).state} '
+                                        '(${snapshot.data.statewise.elementAt(i).statecode})',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                      flex: 1,
+                                      child: Text(
+                                        'Active',
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            color: Colors.red
+                                        ),
+                                      )
+                                  ),
+                                  Expanded(
+                                      flex: 1,
+                                      child: Text(
+                                        '${snapshot.data.statewise.elementAt(i).active}',
+                                        textAlign: TextAlign.right,
+                                        style: TextStyle(
+                                            color: Colors.red
+                                        ),
+                                      )
+                                  ),
+                                  Expanded(
+                                      flex: 1,
+                                      child: Text(
+                                        '',
+                                      )
+                                  ),
+                                  Expanded(
+                                      flex: 1,
+                                      child: Text(
+                                        'Recovered',
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            color: Colors.green
+                                        ),
+                                      )
+                                  ),
+                                  Expanded(
+                                      flex: 1,
+                                      child: Text(
+                                        '${snapshot.data.statewise.elementAt(i).recovered}',
+                                        textAlign: TextAlign.right,
+                                        style: TextStyle(
+                                            color: Colors.green
+                                        ),
+                                      )
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                      flex: 1,
+                                      child: Text(
+                                        'Deceased',
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            color: Colors.grey
+                                        ),
+                                      )
+                                  ),
+                                  Expanded(
+                                      flex: 1,
+                                      child: Text(
+                                        '${snapshot.data.statewise.elementAt(i).deaths}',
+                                        textAlign: TextAlign.right,
+                                        style: TextStyle(
+                                            color: Colors.grey
+                                        ),
+                                      )
+                                  ),
+                                  Expanded(
+                                      flex: 1,
+                                      child: Text(
+                                        '',
+                                      )
+                                  ),
+                                  Expanded(
+                                      flex: 1,
+                                      child: Text(
+                                        'Confirmed',
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            color: Colors.purple
+                                        ),
+                                      )
+                                  ),
+                                  Expanded(
+                                      flex: 1,
+                                      child: Text(
+                                        '${snapshot.data.statewise.elementAt(i).confirmed}',
+                                        textAlign: TextAlign.right,
+                                        style: TextStyle(
+                                            color: Colors.purple
+                                        ),
+                                      )
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        )
+                    );
+                  } else if (snapshot.hasError) {
+                    return Text("${snapshot.error}");
+                  }
+
+                  // By default, show a loading spinner.
+                  return CircularProgressIndicator();
+                },
+              ),
+            );
+          },
         ),
       ),
     );

@@ -1,4 +1,4 @@
-# trial
+# Covid Tracker India
 
 A new Flutter project.
 
